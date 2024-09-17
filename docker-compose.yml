@@ -1,6 +1,24 @@
 version: "3.7"
 
 services:
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_NON_ROOT_USER
+      - POSTGRES_NON_ROOT_PASSWORD
+    volumes:
+      - db_storage:/var/lib/postgresql/data
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -8,7 +26,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - caddy_data:/data
+      - caddy_storage:/data
       - ${DATA_FOLDER}/caddy_config:/config
       - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
 
@@ -17,6 +35,8 @@ services:
     restart: always
     ports:
       - 5678:5678
+    links:
+      - postgres
     environment:
       - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
       - N8N_PORT=5678
@@ -25,11 +45,16 @@ services:
       - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
     volumes:
-      - n8n_data:/home/node/.n8n
+      - n8n_storage:/home/node/.n8n
       - ${DATA_FOLDER}/local_files:/files
-      
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
-  caddy_data:
+  caddy_storage:
     external: true
-  n8n_data:
+  n8n_storage:
+    external: true
+  db_storage:
     external: true
