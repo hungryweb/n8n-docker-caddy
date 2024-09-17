@@ -70,3 +70,67 @@ sudo docker volume create db_storage
 
 n8n typically operates on a subdomain. Create a DNS record with your provider for the subdomain and point it to the IP address of the Droplet. The exact steps for this depend on your DNS provider, but typically you need to create a new "A" record for the n8n subdomain.
 
+## Configure Caddy
+
+Caddy needs to know which domains it should serve, and which port to expose to the outside world. Edit the Caddyfile file in the caddy_config folder.
+
+```
+nano caddy_config/Caddyfile
+```
+
+Change the placeholder domain to yours. If you followed the steps to name the subdomain n8n, your full domain is similar to n8n.example.com. The n8n in the reverse_proxy setting tells Caddy to use the service definition defined in the docker-compose.yml file:
+
+```
+n8n.<domain>.<suffix> {
+    reverse_proxy n8n:5678 {
+      flush_interval -1
+    }
+}
+```
+
+If you were to use automate.example.com, your Caddyfile may look something like:
+
+```
+automate.example.com {
+    reverse_proxy n8n:5678 {
+      flush_interval -1
+    }
+}
+```
+
+
+## Start Docker Compose
+
+Start n8n and Caddy with the following command:
+```
+sudo docker compose up -d
+```
+
+This may take a few minutes.
+
+### Test your setup
+
+In your browser, open the URL formed of the subdomain and domain name defined earlier. Enter the user name and password defined earlier, and you should be able to access n8n.
+
+### Stop n8n and Caddy
+
+You can stop n8n and Caddy with the following command:
+
+```
+sudo docker compose stop
+```
+
+### Updating
+
+If you run n8n using a Docker Compose file, follow these steps to update n8n:
+
+```
+# Pull latest version
+docker compose pull
+
+# Stop and remove older version
+docker compose down
+
+# Start the container
+docker compose up -d
+```
