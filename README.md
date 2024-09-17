@@ -65,3 +65,8 @@ Create a Docker volume for the postgres data:
 ```
 sudo docker volume create db_storage
 ```
+
+## Set up DNS
+
+n8n typically operates on a subdomain. Create a DNS record with your provider for the subdomain and point it to the IP address of the Droplet. The exact steps for this depend on your DNS provider, but typically you need to create a new "A" record for the n8n subdomain.
+
