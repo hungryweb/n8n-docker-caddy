@@ -120,17 +120,17 @@ You can stop n8n and Caddy with the following command:
 sudo docker compose stop
 ```
 
-### Updating
+### Update self-hosted n8n
 
 If you run n8n using a Docker Compose file, follow these steps to update n8n:
 
 ```
 # Pull latest version
-docker compose pull
+sudo docker compose pull
 
 # Stop and remove older version
-docker compose down
+sudo docker compose down
 
 # Start the container
-docker compose up -d
+sudo docker compose up -d
 ```
