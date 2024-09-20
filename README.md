@@ -22,20 +22,14 @@ n8n recommends self-hosting for expert users. Mistakes can lead to data loss, se
 
 ```bash
 sudo apt update && sudo apt -y upgrade
-```
 
-### Install Docker
-
-```bash
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-```
 
-```bash
 # Add the repository to Apt sources:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
@@ -52,27 +46,10 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 Starts n8n with PostgreSQL as database.
 
-## Start
-
-To start n8n with PostgreSQL simply start docker-compose by executing the following
-command in the current folder.
-
-**IMPORTANT:** But before you do that change the default users and passwords in the [`.env`](.env) file!
-
-```
-docker-compose up -d
-```
-
-To stop it execute:
-
-```
-docker-compose stop
-```
 
 ## Configuration
 
 The default name of the database, user and password for PostgreSQL can be changed in the [`.env`](.env) file in the current directory.
-
 
 
 ## Create Docker volumes
@@ -104,7 +81,7 @@ n8n typically operates on a subdomain. Create a DNS record with your provider fo
 Caddy needs to know which domains it should serve, and which port to expose to the outside world. Edit the Caddyfile file in the caddy_config folder.
 
 ```
-nano caddy_config/Caddyfile
+sudo nano caddy_config/Caddyfile
 ```
 
 Change the placeholder domain to yours. If you followed the steps to name the subdomain n8n, your full domain is similar to n8n.example.com. The n8n in the reverse_proxy setting tells Caddy to use the service definition defined in the docker-compose.yml file:
