@@ -51,6 +51,13 @@ Starts n8n with PostgreSQL as database.
 
 The default name of the database, user and password for PostgreSQL can be changed in the [`.env`](.env) file in the current directory.
 
+```
+sudo git clone https://github.com/hungryweb/n8n-docker-caddy.git
+cd n8n-docker-caddy
+sudo cp .env.example .env
+sudo nano .env
+sudo nano caddy_config/Caddyfile
+```
 
 ## Create Docker volumes
 
