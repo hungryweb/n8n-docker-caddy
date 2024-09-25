@@ -175,4 +175,7 @@ echo "Deployment completed successfully."
 chmod +x deploy.sh
 ```
 
-3. Execute the script with: ./deploy.sh
+3. Execute the script with:
+```
+./deploy.sh
+```
