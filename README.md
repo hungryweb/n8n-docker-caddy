@@ -176,7 +176,7 @@ echo "Deployment completed successfully."
 
 3. Make the script executable by running:
 ```
-chmod +x deploy.sh
+sudo chmod +x deploy.sh
 ```
 
 4. Execute the script with:
