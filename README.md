@@ -150,8 +150,12 @@ sudo docker compose up -d
 
 # Deploy script
 
-1. Save the content in a file named *deploy.sh*
 
+1. Create the script file named **deploy.sh**
+```
+sudo nano deploy.sh
+```
+2. Save the content
 ```
 #!/bin/bash
 
@@ -170,12 +174,12 @@ sudo docker compose up -d
 echo "Deployment completed successfully."
 ```
 
-2. Make the script executable by running:
+3. Make the script executable by running:
 ```
 chmod +x deploy.sh
 ```
 
-3. Execute the script with:
+4. Execute the script with:
 ```
 ./deploy.sh
 ```
