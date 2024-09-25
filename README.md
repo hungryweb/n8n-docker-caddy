@@ -147,3 +147,32 @@ sudo docker compose down
 # Start the container
 sudo docker compose up -d
 ```
+
+# Deploy script
+
+1. Save the content in a file named *deploy.sh*
+
+```
+#!/bin/bash
+
+# Change to the n8n-docker-caddy directory
+cd n8n-docker-caddy/
+
+# Pull the latest Docker images
+sudo docker compose pull
+
+# Stop and remove the current containers
+sudo docker compose down
+
+# Start the containers in detached mode
+sudo docker compose up -d
+
+echo "Deployment completed successfully."
+```
+
+2. Make the script executable by running:
+```
+chmod +x deploy.sh
+```
+
+3. Execute the script with: ./deploy.sh
