@@ -37,7 +37,7 @@ services:
       - postgres
     environment:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
-      - N8N_RUNNERS_ENABLED=false
+      - N8N_RUNNERS_ENABLED=true
       - N8N_RUNNERS_MODE=internal
       - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
       - N8N_PORT=5678
